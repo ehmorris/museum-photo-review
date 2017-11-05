@@ -4,6 +4,8 @@ When I visit a museum I take photos of the art I like, and usually the placard. 
 
 I’m starting with the readme.
 
+[React readme](https://github.com/facebookincubator/create-react-app#create-react-app-).
+
 ## Steps
 
 1. Get token
