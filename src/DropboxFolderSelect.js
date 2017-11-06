@@ -11,12 +11,16 @@ class DropboxFolderSelect extends Component {
     this.state = { folders: null };
   }
 
-  getFolders(path, callback) {
+  getFolderContents(path, callback) {
     this.dropbox.filesListFolder({path: path}).then(callback);
   }
 
   componentDidMount() {
-    this.getFolders('', ({entries: folders}) => {
+    this.getFolderContents('', ({entries}) => {
+      const folders = entries.filter((entry) => {
+        return entry['.tag'] === 'folder';
+      });
+
       this.setState({ folders: folders });
     });
   }
