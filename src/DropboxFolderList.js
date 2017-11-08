@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import DropboxFolder from './DropboxFolder';
 const Dropbox = require('dropbox');
 
-class DropboxFolderSelect extends Component {
-  constructor() {
-    super();
+class DropboxFolderList extends Component {
+  constructor(props) {
+    super(props);
 
     this.dropbox = new Dropbox({ accessToken: process.env.REACT_APP_DROPBOX_ACCESS_TOKEN });
 
-    this.state = { folders: null };
+    this.state = { entries: null };
   }
 
   getFolderContents(path, callback) {
@@ -16,17 +16,13 @@ class DropboxFolderSelect extends Component {
   }
 
   componentDidMount() {
-    this.getFolderContents('', ({entries}) => {
-      const folders = entries.filter((entry) => {
-        return entry['.tag'] === 'folder';
-      });
-
-      this.setState({ folders: folders });
+    this.getFolderContents(this.props.folder, ({entries}) => {
+      this.setState({ entries: entries });
     });
   }
 
-  renderFolders(folders) {
-    return folders.map((folder) => {
+  renderEntries(entries) {
+    return entries.map((folder) => {
       return (
         <DropboxFolder key={folder.name} folder={folder} />
       );
@@ -36,10 +32,10 @@ class DropboxFolderSelect extends Component {
   render() {
     return (
       <div>
-        {this.state.folders && this.renderFolders(this.state.folders)}
+        {this.state.entries && this.renderEntries(this.state.entries)}
       </div>
     );
   }
 }
 
-export default DropboxFolderSelect;
+export default DropboxFolderList;

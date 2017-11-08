@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import DropboxFolderSelect from './DropboxFolderSelect';
+import DropboxFolderList from './DropboxFolderList';
 
 class App extends Component {
   render() {
     return (
       <div>
-        <DropboxFolderSelect />
+        <DropboxFolderList folder="/camera uploads" />
       </div>
     );
   }
