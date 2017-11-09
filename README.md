@@ -50,6 +50,8 @@ I’m starting with the readme.
 
 5. ~~See if average lat/long from set [is near a museum](https://www.mapbox.com/api-documentation/#geocoding )~~ Turns out Mapbox is not reliable here, as it doesn’t even return the Met for its exact coordinates on Google maps, just the obelisk outside the Met.
 
+**Update** Wikipedia has a [pretty good reverse geocoding API](https://en.wikipedia.org/w/api.php?action=query&list=geosearch&gscoord=41.308079%7C-72.930791&gsradius=1000&gslimit=10).
+
 *request would have looked like this*:
 ```
 https://api.mapbox.com/geocoding/v5/mapbox.places/-72.9315435,41.308242.json?types=poi.landmark&access_token=ACCESS_TOKEN
