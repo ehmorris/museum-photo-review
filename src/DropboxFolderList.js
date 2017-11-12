@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DropboxFolder from './DropboxFolder';
+import DropboxFolderItem from './DropboxFolderItem';
 const Dropbox = require('dropbox');
 
 class DropboxFolderList extends Component {
@@ -12,7 +12,11 @@ class DropboxFolderList extends Component {
   }
 
   getFolderContents(path, callback) {
-    this.dropbox.filesListFolder({path: path}).then(callback);
+    this.dropbox.filesListFolder({
+      path: path,
+      include_media_info: true,
+      limit: 20,
+    }).then(callback);
   }
 
   componentDidMount() {
@@ -22,9 +26,9 @@ class DropboxFolderList extends Component {
   }
 
   renderEntries(entries) {
-    return entries.map((folder) => {
+    return entries.map((entry) => {
       return (
-        <DropboxFolder key={folder.name} folder={folder} />
+        <DropboxFolderItem key={entry.id} item={entry} />
       );
     });
   }
@@ -33,6 +37,17 @@ class DropboxFolderList extends Component {
     return (
       <div>
         {this.state.entries && this.renderEntries(this.state.entries)}
+
+        {!this.state.entries &&
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100vh',
+          }}>
+            Loading
+          </div>
+        }
       </div>
     );
   }
