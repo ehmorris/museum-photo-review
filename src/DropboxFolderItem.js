@@ -20,7 +20,7 @@ class DropboxFolderItem extends Component {
   getThumbnail(path, callback) {
     this.dropbox.filesGetThumbnail({
       path: path,
-      size: 'w64h64',
+      size: 'w128h128',
     }).then(callback);
   }
 
