@@ -52,6 +52,8 @@ I’m starting with the readme.
 
 **Update** Wikipedia has a [pretty good reverse geocoding API](https://en.wikipedia.org/w/api.php?action=query&list=geosearch&gscoord=41.308079%7C-72.930791&gsradius=1000&gslimit=10).
 
+**Update** You can also group queries together [to get nearby locations *and* their categories](https://en.wikipedia.org/w/api.php?action=query&prop=categories&generator=geosearch&ggscoord=41.308079%7C-72.930791).
+
 *request would have looked like this*:
 ```
 https://api.mapbox.com/geocoding/v5/mapbox.places/-72.9315435,41.308242.json?types=poi.landmark&access_token=ACCESS_TOKEN
