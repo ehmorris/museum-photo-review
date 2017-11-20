@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Location from './Location';
 const Dropbox = require('dropbox');
 
 class DropboxFolderItem extends Component {
@@ -60,23 +61,12 @@ class DropboxFolderItem extends Component {
             display: 'flex',
             justifyContent: 'space-between',
           }}>
-            <strong>{this.item.name}</strong>
+            <strong>{this.item.name} | {this.metadata.time_taken}</strong>
             <span>{this.item.path_lower}</span>
           </div>
 
-          {this.metadata &&
-            <div style={{ marginTop: '1rem' }}>
-              {this.metadata.location &&
-                <div>
-                  {this.metadata.location.latitude},
-                  {this.metadata.location.longitude}
-                </div>
-              }
-
-              <div>
-                {this.metadata.time_taken}
-              </div>
-            </div>
+          {this.metadata && this.metadata.location &&
+            <Location coordinates={this.metadata.location} />
           }
         </div>
       </div>
