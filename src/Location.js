@@ -26,23 +26,28 @@ class Location extends Component {
   getNearbyLocations(coordinates, callback) {
     this.mediaWiki.get('', {
       params: {
-        list: 'geosearch',
-        gscoord: `${coordinates.latitude}|${coordinates.longitude}`,
-        gsradius: 200,
-        gslimit: 10,
+        prop: 'categories',
+        generator: 'geosearch',
+        cllimit: 500,
+        ggscoord: `${coordinates.latitude}|${coordinates.longitude}`,
+        ggsradius: 200,
+        ggslimit: 10,
       }
     }).then(callback);
   }
 
-  getAllLocationInfo(ids, callback) {
-    const pageIdsString = ids.join('|');
+  componentDidMount() {
+    this.getNearbyLocations(this.props.coordinates, ({data}) => {
+      if (data.query && data.query.pages) {
+        const pagesArray = Object.values(data.query.pages);
+        const isMuseum = JSON.stringify(data.query.pages).includes('museum');
 
-    this.mediaWiki.get('', {
-      params: {
-        pageids: pageIdsString,
-        prop: 'categories',
+        this.setState({
+          locations: pagesArray,
+          isMuseum: isMuseum,
+        });
       }
-    }).then(callback);
+    });
   }
 
   renderLocations() {
@@ -51,36 +56,6 @@ class Location extends Component {
         return <div key={location.pageid}>{location.title}</div>
       })
     )
-  }
-
-  areWikiLocationsMuseum(pages) {
-    const pagesArray = Object.values(pages);
-
-    return !!pagesArray.find(page => {
-      if (page.categories) {
-        return page.categories.find(category => {
-          return category.title.includes('museum');
-        });
-      }
-    });
-  }
-
-  componentDidMount() {
-    this.getNearbyLocations(this.props.coordinates, ({data: {query: {geosearch}}}) => {
-      const idArray = geosearch.map(location => location.pageid);
-
-      this.getAllLocationInfo(idArray, ({data}) => {
-        if (data.query && data.query.pages) {
-          this.setState({
-            isMuseum: this.areWikiLocationsMuseum(data.query.pages),
-          });
-        }
-      });
-
-      this.setState({
-        locations: geosearch,
-      });
-    });
   }
 
   render() {
