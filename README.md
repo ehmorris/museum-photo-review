@@ -2,10 +2,6 @@
 
 When I visit a museum I take photos of the art I like, and usually the placard. This app is an attempt to group all those photos into museum-level (and piece-level) buckets for an easy review at some later time.
 
-I’m starting with the readme.
-
-[React readme](https://github.com/facebookincubator/create-react-app#create-react-app-).
-
 ## Steps
 
 1. Get token
@@ -16,7 +12,6 @@ I’m starting with the readme.
 
 *response example*:
 ``` json
-	
 {
   ".tag": "file",
   "name": "2014-06-21 15.40.05.jpg",
@@ -48,19 +43,53 @@ I’m starting with the readme.
 
 4. Group photos by time taken, then lat/long, and try applying some heuristic like “most photos in the grouping should appear in pairs taken a few seconds apart”
 
-5. ~~See if average lat/long from set [is near a museum](https://www.mapbox.com/api-documentation/#geocoding )~~ Turns out Mapbox is not reliable here, as it doesn’t even return the Met for its exact coordinates on Google maps, just the obelisk outside the Met.
+5. Check if average lat/long from set [is near a museum](https://www.mediawiki.org/wiki/API:Showing_nearby_wiki_information)
 
-**Update** Wikipedia has a [pretty good reverse geocoding API](https://en.wikipedia.org/w/api.php?action=query&list=geosearch&gscoord=41.308079%7C-72.930791&gsradius=1000&gslimit=10).
-
-**Update** You can also group queries together [to get nearby locations *and* their categories](https://en.wikipedia.org/w/api.php?action=query&prop=categories&generator=geosearch&cllimit=500&ggscoord=41.308079%7C-72.930791).
-
-*request would have looked like this*:
+*response example*:
+``` json
+{
+  "batchcomplete": "",
+  "query": {
+    "pages": {
+      "2222186": {
+        "pageid": 2222186,
+        "ns": 0,
+        "title": "Yale Center for British Art",
+        "index": 3,
+        "categories": [
+          {
+            "ns": 14,
+            "title": "Category:Art museums established in 1974"
+          },
+          {
+            "ns": 14,
+            "title": "Category:Art museums in Connecticut"
+          }
+        ]
+      },
+      "2791909": {
+        "pageid": 2791909,
+        "ns": 0,
+        "title": "Yale University Art Gallery",
+        "index": 4,
+        "categories": [
+          {
+            "ns": 14,
+            "title": "Category:Art galleries established in 1953"
+          },
+          {
+            "ns": 14,
+            "title": "Category:Art museums established in 1832"
+          },
+          {
+            "ns": 14,
+            "title": "Category:Art museums in Connecticut"
+          }
+        ]
+      }
+    }
+  }
+}
 ```
-https://api.mapbox.com/geocoding/v5/mapbox.places/-72.9315435,41.308242.json?types=poi.landmark&access_token=ACCESS_TOKEN
-```
 
-5. Show some photos from each grouping and ask the user if it’s a museum
-
-## Testing
-
-- Grab a few sets of museum photos and see if there’s a good heuristic
+[API sandbox](https://en.wikipedia.org/wiki/Special:ApiSandbox#action=query&format=json&prop=categories&generator=geosearch&ggscoord=41.308079%7C-72.930791)
