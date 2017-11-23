@@ -16,21 +16,24 @@ class ApplicationController < ActionController::Base
     @photos = []
 
     photo_urls.each do |photo_url|
-      photo = [client.get_metadata(photo_url, {
+      photo = client.get_metadata(photo_url, {
         include_media_info: true
-      })]
+      })
 
-      if photo.first&.media_info&.location
-        location = photo.first.media_info.location
+      if photo&.media_info&.location
+        location = photo.media_info.location
         latitude = location.latitude
         longitude = location.longitude
 
         is_near_museum = coordinates_are_near_museum(latitude, longitude)
-
-        photo.push("Is near museum: #{is_near_museum}")
       end
 
-      @photos.push(photo)
+      @photos.push({
+        :path => photo.path_lower,
+        :latitude => photo&.media_info&.location&.latitude,
+        :longitude => photo&.media_info&.location&.longitude,
+        :near_museum => is_near_museum
+      })
     end
   end
 end
