@@ -1,13 +1,15 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>MuseumPhotoReview</title>
-    <%= csrf_meta_tags %>
+<title>MuseumPhotoReview</title>
 
-    <%= stylesheet_link_tag    'application', media: 'all' %>
-  </head>
+<style>
+  body {
+    display: grid;
+    font-family: monospace;
+    font-size: 18px;
+    grid-gap: 1rem;
+    grid-template-columns: auto auto;
+    margin: 0;
+    padding: 1rem;
+  }
+</style>
 
-  <body>
-    <%= yield %>
-  </body>
-</html>
+<%= yield %>
