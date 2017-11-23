@@ -1,10 +1,13 @@
 <% @photos.each do |photo| %>
   <div>
-    <div><%= photo.first.path_lower %></div>
-    <div>
-      <div><%= photo.first&.media_info&.location&.latitude %></div>
-      <div><%= photo.first&.media_info&.location&.longitude %></div>
-    </div>
-    <div><%= photo.second %></div>
+    <div><%= photo[:path] %></div>
+
+    <% if photo[:latitude] %>
+      <div><%= photo[:latitude] %>, <%= photo[:longitude] %></div>
+    <% end %>
+
+    <% if photo[:near_museum] %>
+      <div>Near museum: <%= photo[:near_museum] %></div>
+    <% end %>
   </div>
 <% end %>
