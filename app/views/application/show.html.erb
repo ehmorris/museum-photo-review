@@ -1,1 +1,10 @@
-<%= debug(@result) %>
+<% @photos.each do |photo| %>
+  <div>
+    <div><%= photo.first.path_lower %></div>
+    <div>
+      <div><%= photo.first&.media_info&.location&.latitude %></div>
+      <div><%= photo.first&.media_info&.location&.longitude %></div>
+    </div>
+    <div><%= photo.second %></div>
+  </div>
+<% end %>
