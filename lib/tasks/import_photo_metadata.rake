@@ -10,7 +10,7 @@ namespace :import_photo_metadata do
     result.entries.each do |photo|
       if photo&.media_info
         media_info = photo.media_info
-        taken_at = media_info.time_taken
+        time_taken = media_info.time_taken
 
         if media_info&.location
           longitude = media_info.location.longitude
@@ -34,7 +34,7 @@ namespace :import_photo_metadata do
         :width => width,
         :height => height,
         :last_modified => photo.client_modified,
-        :taken_at => taken_at 
+        :time_taken => time_taken
       })
     end
   end
