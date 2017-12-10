@@ -172,19 +172,19 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord-postgis-adapter (>= 5.0.3)
+  activerecord-postgis-adapter (~> 5.0.3)
   byebug
-  dotenv-rails (>= 2.2.1)
-  dropbox_api (>= 0.1.10)
+  dotenv-rails (~> 2.2.1)
+  dropbox_api (~> 0.1.10)
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   pg (~> 0.18)
   puma (~> 3.7)
   rails (~> 5.1.4)
-  rest-client (>= 2.0.2)
+  rest-client (~> 2.0.2)
   spring
   spring-watcher-listen (~> 2.0.0)
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.11.2
+   1.16.0

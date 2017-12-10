@@ -25,4 +25,12 @@ module ApplicationHelper
       pages ? pages.to_s.downcase().include?('museum') : false
     }
   end
+
+  def thumbnail(path)
+    client = DropboxApi::Client.new(ENV['DROPBOX_ACCESS_TOKEN'])
+
+    client.get_thumbnail(path, :format => :jpeg) do |data|
+      return data
+    end
+  end
 end
