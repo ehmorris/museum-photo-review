@@ -1,7 +1,8 @@
 <% @photos.each do |photo| %>
   <div>
-    <div><%= photo.path_lower %></div>
+    <%= ('<img src="data:image/jpg;base64,%s">' % Base64.encode64(thumbnail(photo.path_lower))).html_safe %>
     <div><%= photo.location %></div>
+    <div><%= photo.time_taken %></div>
   </div>
 <% end %>
 
