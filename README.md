@@ -2,7 +2,23 @@
 
 When I visit a museum I take photos of the art I like, and usually the placard. This app is an attempt to group all those photos into museum-level (and piece-level) buckets for an easy review at some later time.
 
-## Steps
+## Setup
+
+- Run `rails s`
+- Create an .env file with your Dropbox access token
+- Import photos by running the rake task `bin/rails import_photo_metadata:import`. The task should output something like this:
+
+```
+1/4 Clearing existing photos
+2/4 Beginning photo metadata download
+  - Adding 2000 photos to 2000 total photos
+  - Adding 2000 photos to 4000 total photos
+  - Adding 418 photos to 6000 total photos
+3/4 Download complete, beginning database insert
+4/4 Database insert complete
+```
+
+## Idea
 
 1. Get token
 
