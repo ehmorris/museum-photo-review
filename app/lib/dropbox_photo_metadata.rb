@@ -4,7 +4,7 @@ module DropboxPhotoMetadata
   def self.accumulate_photos(cursor, all_photos)
     photos = @client.list_folder_continue(cursor)
 
-    puts("  Adding #{photos.entries.count} photos to #{all_photos.count} total photos")
+    puts("  - Adding #{photos.entries.count} photos to #{all_photos.count} total photos")
 
     new_all_photos = all_photos.concat(photos.entries)
 
