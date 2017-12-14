@@ -1,13 +1,15 @@
 namespace :import_photo_metadata do
-  desc "Import all photos or new photos from /camera uploads on Dropbox"
+  desc "Import all photo metadata from Dropbox"
   task :import => :environment do
-    client = DropboxApi::Client.new(ENV['DROPBOX_ACCESS_TOKEN'])
+    include DropboxPhotoMetadata
 
-    result = client.list_folder('/camera uploads', {
-      include_media_info: true
-    })
+    puts('Beginning photo metadata download')
 
-    result.entries.each do |photo|
+    photos = DropboxPhotoMetadata.download
+
+    puts('Download complete, beginning database insert')
+
+    photos.entries.each do |photo|
       if photo&.media_info
         media_info = photo.media_info
         time_taken = media_info.time_taken
@@ -37,5 +39,7 @@ namespace :import_photo_metadata do
         :time_taken => time_taken
       })
     end
+
+    puts('Database insert complete')
   end
 end
