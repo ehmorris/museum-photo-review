@@ -1,8 +1,10 @@
 module DropboxPhotoMetadata
-  @client = DropboxApi::Client.new(ENV['DROPBOX_ACCESS_TOKEN'])
+  def self.client
+    DropboxApi::Client.new(ENV['DROPBOX_ACCESS_TOKEN'])
+  end
 
   def self.accumulate_photos(cursor, all_photos)
-    photos = @client.list_folder_continue(cursor)
+    photos = self.client.list_folder_continue(cursor)
 
     puts("  - Adding #{photos.entries.count} photos to #{all_photos.count} total photos")
 
@@ -16,7 +18,7 @@ module DropboxPhotoMetadata
   end
 
   def self.download
-    photos = @client.list_folder('/camera uploads', {
+    photos = self.client.list_folder('/camera uploads', {
       include_media_info: true
     })
 
